@@ -17,12 +17,12 @@
         <li class="list-group-item d-flex flex-row justify-content-between align-items-center">
             <div>
             {{ motivo.descripcion }} 
-        </div> 
-        <div>
-            <a class="btn btn-link text-decoration-none" href="{% url 'transferencia_motivo:update' motivo.id %}"><ico class="ri-pencil-line ri-lg"></a> | 
-            <a class="btn btn-link text-decoration-none" href="{% url 'transferencia_motivo:delete' motivo.id %}"><ico class="ri-delete-bin-line ri-lg"></a>
+            </div> 
+            <div>
+               <a class="btn btn-link text-decoration-none" href="{% url 'transferencia_motivo:update' motivo.id %}"><ico class="ri-pencil-line ri-lg"></a> | 
+                <a class="btn btn-link text-decoration-none" href="{% url 'transferencia_motivo:delete' motivo.id %}"><ico class="ri-delete-bin-line ri-lg"></a>
             </div>
-            </li>
+          </li>
     {% endfor %}
 </ul>
 {% endblock %}
