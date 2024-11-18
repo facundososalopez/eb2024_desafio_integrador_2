@@ -1,0 +1,11 @@
+<h1>Lista de Motivos de Transferencia</h1>
+<a href="{% url 'transferencia_motivo:create' %}">Crear nuevo motivo</a>
+<ul>
+    {% for motivo in motivos %}
+        <li>
+            {{ motivo.descripcion }} 
+            <a href="{% url 'transferencia_motivo:update' motivo.id %}">Editar</a> | 
+            <a href="{% url 'transferencia_motivo:delete' motivo.id %}">Eliminar</a>
+        </li>
+    {% endfor %}
+</ul>

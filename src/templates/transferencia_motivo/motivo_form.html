@@ -1,0 +1,6 @@
+<h1>{% if object %}Editar Motivo{% else %}Crear Motivo{% endif %}</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Guardar</button>
+</form>
