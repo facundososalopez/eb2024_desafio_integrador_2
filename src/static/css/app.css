@@ -1,0 +1,15 @@
+.navbar-brand img {
+    width: auto;
+    height: 1.7rem;
+    margin-right: .3rem;
+}
+
+.avatar {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background-color: white;
+    background-size: cover;
+    background-position: center center;
+}
