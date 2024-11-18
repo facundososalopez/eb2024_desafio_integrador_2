@@ -46,12 +46,12 @@ DJANGO_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'apps.transferencia_motivo',
+    'django.contrib.staticfiles'
 ]
 
 MY_APPS = [
     'apps.usuarios',
+    'apps.transferencia_motivo',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + MY_APPS
@@ -104,6 +104,7 @@ DATABASES = {
         'PORT': env.int('DB_PORT', default=MYSQL_DEFAULT_PORT),
         'OPTIONS': {
             'charset': 'utf8mb4',
+            'collation': 'utf8mb4_unicode_ci'
         },
     }
 }
