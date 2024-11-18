@@ -1,0 +1,54 @@
+{% load static %}
+<nav class="navbar navbar-expand-md bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+        <img src="{% static 'assets/images/logo.png' %}" alt="Logo Money Share">
+        Money Share
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto align-items-center">
+        {% if not user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <i class="ri-user-add-line ri-lg"></i> Registrate
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <i class="ri-login-box-line ri-lg"></i> Ingresar
+          </a>
+        </li>
+        {% else %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="ri-settings-4-line ri-lg me-1"></i> Administración
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li>
+                <a class="dropdown-item" href="#"><i class="ri-group-3-line ri-lg me-1"></i>Usuarios</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle d-flex flex-row align-items-center gap-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="avatar" style="background-image: url({% static 'assets/images/user.svg' %})"></span>
+            {{ user.username }}
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li>
+                <a class="dropdown-item" href="#"><i class="ri-id-card-line ri-lg me-1"></i> Perfil</a>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+                <a class="dropdown-item" href="#"><i class="ri-logout-box-line ri-lg me-1"></i> Salir</a>
+            </li>
+          </ul>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
