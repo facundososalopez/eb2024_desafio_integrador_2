@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'transferencia_motivo',
 ]
 
 MIDDLEWARE = [
@@ -93,6 +94,9 @@ DATABASES = {
         'PASSWORD': env('DB_PASSWORD'),
         'HOST': env('DB_HOST'),
         'PORT': env.int('DB_PORT', default=MYSQL_DEFAULT_PORT),
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+        },
     }
 }
 
