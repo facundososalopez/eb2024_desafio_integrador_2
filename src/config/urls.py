@@ -26,7 +26,7 @@ from . import views
 urlpatterns = [
     path('base', views.BaseTemplateView.as_view(), name='base'),
     path('admin/', admin.site.urls),
-    path('transferencia_motivo/', include('transferencia_motivo.urls')),
+    path('transferencia_motivo/', include('apps.transferencia_motivo.urls')),
     
 ]
 
