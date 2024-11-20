@@ -46,11 +46,12 @@ DJANGO_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
+    'django.contrib.staticfiles'
 ]
 
 MY_APPS = [
     'apps.usuarios',
+    'apps.transferencia_motivo',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + MY_APPS
@@ -101,6 +102,10 @@ DATABASES = {
         'PASSWORD': env('DB_PASSWORD'),
         'HOST': env('DB_HOST'),
         'PORT': env.int('DB_PORT', default=MYSQL_DEFAULT_PORT),
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+            'collation': 'utf8mb4_unicode_ci'
+        },
     }
 }
 
@@ -155,3 +160,5 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+APP_DIRS=True
