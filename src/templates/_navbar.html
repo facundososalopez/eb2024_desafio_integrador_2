@@ -12,12 +12,12 @@
       <ul class="navbar-nav ms-auto align-items-md-center">
         {% if not user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'usuarios_register' %}">
+          <a class="nav-link" href="{% url 'register' %}">
             <i class="ri-user-add-line ri-lg"></i> Registrate
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">
+          <a class="nav-link" href="{% url 'login' %}">
             <i class="ri-login-box-line ri-lg"></i> Ingresar
           </a>
         </li>

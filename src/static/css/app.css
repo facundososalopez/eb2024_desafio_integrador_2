@@ -13,3 +13,8 @@
     background-size: cover;
     background-position: center center;
 }
+
+#login-form {
+    max-width: 30rem;
+    margin: 0 auto;
+}

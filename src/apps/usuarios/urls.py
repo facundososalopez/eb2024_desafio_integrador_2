@@ -5,5 +5,5 @@ from .views import UsuarioRegistroView
 name_prefix = "usuarios_"
 
 urlpatterns = [
-    path("registro/", UsuarioRegistroView.as_view(), name=name_prefix + "register"),
+    # path("registro/", UsuarioRegistroView.as_view(), name=name_prefix + "register"),
 ]
