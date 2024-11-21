@@ -54,7 +54,11 @@ MY_APPS = [
     'apps.transferencia_motivo',
 ]
 
-INSTALLED_APPS = DJANGO_APPS + MY_APPS
+THIRD_PARTY_APPS = [
+    'django_bootstrap5',
+]
+
+INSTALLED_APPS = DJANGO_APPS + MY_APPS + THIRD_PARTY_APPS
 
 AUTH_USER_MODEL = 'usuarios.Usuario'
 
@@ -131,7 +135,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-ar'
 
 TIME_ZONE = 'UTC'
 

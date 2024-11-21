@@ -1,28 +1,24 @@
 {% extends 'base.html' %}
+{% load django_bootstrap5 %}
 {% block content %}
-<h1>Lista de Motivos de Transferencia</h1>
-{% if messages %}
-  <div class="alert-container">
-    {% for message in messages %}
-      <div class="alert alert-{{ message.tags }}">
-        {{ message }}
-      </div>
-    {% endfor %}
-  </div>
-{% endif %}
-<a class ="btn btn-primary" href="{% url 'transferencia_motivo:create' %}">Nuevo Motivo</a>
-<br /><br />
+<h1 class="text-truncate">Lista de Motivos de Transferencia</h1>
+{% bootstrap_messages %}
+<a class ="btn btn-primary mb-3" href="{% url 'transferencia_motivo:create' %}">Nuevo Motivo</a>
 <ul class="list-group">
     {% for motivo in motivos %}
-        <li class="list-group-item d-flex flex-row justify-content-between align-items-center">
-            <div>
+    <li class="list-group-item d-flex flex-row align-items-center">
+        <div class="flex-fill text-truncate">
             {{ motivo.descripcion }} 
-            </div> 
-            <div>
-               <a class="btn btn-link text-decoration-none" href="{% url 'transferencia_motivo:update' motivo.id %}"><ico class="ri-pencil-line ri-lg"></a> | 
+        </div> 
+        <ul class="list-unstyled d-flex flex-row gap-1">
+            <li>
+                <a class="btn btn-link text-decoration-none" href="{% url 'transferencia_motivo:update' motivo.id %}"><ico class="ri-pencil-line ri-lg"></a>
+            </li>
+            <li>
                 <a class="btn btn-link text-decoration-none" href="{% url 'transferencia_motivo:delete' motivo.id %}"><ico class="ri-delete-bin-line ri-lg"></a>
-            </div>
-          </li>
+            </li>
+        </ul>
+    </li>
     {% endfor %}
 </ul>
 {% endblock %}
