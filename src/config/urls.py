@@ -35,7 +35,8 @@ urlpatterns = [
     path('login', usuarios_views.UsuarioLoginView.as_view(), name='login'),
     path('logout', usuarios_views.UsuarioLogoutView.as_view(), name='logout'),
     path('transferencia_motivo/', include('apps.transferencia_motivo.urls')),
-    # path('usuarios/', include('apps.usuarios.urls')),
+    path('usuarios/', include('apps.usuarios.urls')),
+    path('movimientos/', include('apps.movimientos.urls')),
 ]
 
 if settings.DEBUG:
