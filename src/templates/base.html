@@ -8,7 +8,6 @@
     <title>Money Share | {% block title %}{% endblock %}</title>
     
     {% bootstrap_css %}
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.min.css"  rel="stylesheet">
     <link href="{% static 'css/app.css' %}" rel="stylesheet" type="text/css">
     {% block page_css %}{% endblock %}
 </head>
@@ -25,6 +24,11 @@
         {% include '_footer.html' %}
     </footer>
     {% bootstrap_javascript %}
+    <script defer src="{% static 'js/fontawesome/brands.min.js' %}"></script>
+    <script defer src="{% static 'js/fontawesome/solid.min.js' %}"></script>
+    <script defer src="{% static 'js/fontawesome/regular.min.js' %}"></script>
+    <script defer src="{% static 'js/fontawesome/fontawesome.min.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
     {% block page_js %}{% endblock %}
 </body>
 </html>
