@@ -68,24 +68,15 @@ LOGIN_REDIRECT_URL = 'home'
 
 LOGOUT_URL = 'logout'
 
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'login_required.middleware.LoginRequiredMiddleware',
+    'django.contrib.auth.middleware.LoginRequiredMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
-
-LOGIN_REQUIRED_IGNORE_VIEW_NAMES = [
-    'admin:index',
-    'admin:login',
-    'register',
-    'login',
-    'home',
 ]
 
 ROOT_URLCONF = 'config.urls'

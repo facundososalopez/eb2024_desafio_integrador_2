@@ -1,10 +1,16 @@
+from django.http import HttpRequest
+from django.http.response import HttpResponse as HttpResponse
 from django.shortcuts import render, redirect
 from .forms import UsuarioForm
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, TemplateView
 from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.decorators import login_not_required
+from django.utils.decorators import method_decorator
 
 # Create your views here.
+
+@method_decorator(login_not_required, name='dispatch')
 class UsuarioRegistroView(CreateView):
     form_class = UsuarioForm
     success_url = reverse_lazy("login")
