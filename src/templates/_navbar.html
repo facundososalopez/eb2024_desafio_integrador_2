@@ -1,7 +1,7 @@
 {% load static %}
 <nav class="navbar navbar-expand-md bg-body-tertiary">
   <div class="container-xl">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="{% url 'home' %}">
         <img src="{% static 'assets/images/logo.png' %}" alt="Logo Money Share">
         Money Share
     </a>
@@ -12,23 +12,30 @@
       <ul class="navbar-nav ms-auto align-items-md-center">
         {% if not user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'usuarios_register' %}">
-            <i class="ri-user-add-line ri-lg"></i> Registrate
+          <a class="nav-link" href="{% url 'register' %}">
+            <i class="fa-solid fa-user-plus me-2"></i>Registrate
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">
-            <i class="ri-login-box-line ri-lg"></i> Ingresar
+          <a class="nav-link" href="{% url 'login' %}">
+            <i class="fa-solid fa-arrow-right-to-bracket me-2"></i>Ingresar
           </a>
         </li>
         {% else %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="ri-settings-4-line ri-lg me-1"></i> Administración
+            <div class="fa-solid fa-gear"></div> Administración
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
             <li>
-                <a class="dropdown-item" href="#"><i class="ri-group-3-line ri-lg me-1"></i>Usuarios</a>
+                <a class="dropdown-item" href="#">
+                  <i class="fa-solid fa-users me-2"></i>Usuarios
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="{% url 'transferencia_motivo:list' %}">
+                  <i class="fa-solid fa-right-left me-2"></i>Motivos de Transferencia
+                </a>
             </li>
           </ul>
         </li>
@@ -39,11 +46,18 @@
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
             <li>
-                <a class="dropdown-item" href="#"><i class="ri-id-card-line ri-lg me-1"></i> Perfil</a>
+                <a class="dropdown-item" href="#">
+                  <i class="fa-regular fa-id-card me-2"></i>Perfil
+                </a>
             </li>
             <li><hr class="dropdown-divider"></li>
             <li>
-                <a class="dropdown-item" href="#"><i class="ri-logout-box-line ri-lg me-1"></i> Salir</a>
+                <form action="{% url 'logout' %}" method="post" class="d-grid">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-link text-start text-decoration-none text-reset px-3">
+                    <i class="fa-solid fa-arrow-right-from-bracket me-2"></i>Salir
+                  </button>
+                </form>
             </li>
           </ul>
         </li>

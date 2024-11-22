@@ -23,9 +23,17 @@ from django.conf.urls.static import static
 
 from . import views
 
+# Vistas de apps.usuarios que quiero que tenga path desde de la raiz
+from apps.usuarios import views as usuarios_views
+
 urlpatterns = [
     path('base', views.BaseTemplateView.as_view(), name='base'),
+    path('', views.HomeView.as_view(), name='home'),
+    path('panel', usuarios_views.UsuarioPanelView.as_view(), name='panel'),
     path('admin/', admin.site.urls),
+    path('registro', usuarios_views.UsuarioRegistroView.as_view(), name='register'),
+    path('login', usuarios_views.UsuarioLoginView.as_view(), name='login'),
+    path('logout', usuarios_views.UsuarioLogoutView.as_view(), name='logout'),
     path('transferencia_motivo/', include('apps.transferencia_motivo.urls')),
     path('usuarios/', include('apps.usuarios.urls')),
     path('movimientos/', include('apps.movimientos.urls')),
