@@ -52,6 +52,7 @@ DJANGO_APPS = [
 MY_APPS = [
     'apps.usuarios',
     'apps.transferencia_motivo',
+    'apps.movimientos'
 ]
 
 THIRD_PARTY_APPS = [

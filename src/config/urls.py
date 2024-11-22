@@ -28,6 +28,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('transferencia_motivo/', include('apps.transferencia_motivo.urls')),
     path('usuarios/', include('apps.usuarios.urls')),
+    path('movimientos/', include('apps.movimientos.urls')),
 ]
 
 if settings.DEBUG:

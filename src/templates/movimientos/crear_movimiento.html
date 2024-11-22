@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Crear Movimiento</h1>
+    <form method="post" class="border border-secondary rounded p-4 shadow-sm">
+        {% csrf_token %}
+        
+        <div class="mb-3">
+            {{ form.as_p }}
+        </div>
+        
+        <button type="submit" class="btn btn-primary w-100">Guardar</button>
+    </form>
+</div>
+</html>
+{% endblock %}
