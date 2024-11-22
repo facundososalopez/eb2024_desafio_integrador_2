@@ -3,18 +3,24 @@
 {% block title %}Registro de usuario{% endblock %}
 
 {% block content %}
-<h1 >Registro</h1>
+<h1><i class="fa-solid fa-user-plus fa-xs me-2"></i>Registro</h1>
 {% bootstrap_messages %}
 <form method="post" class="border border-secondary rounded p-3">
   {% csrf_token %}
   {% bootstrap_field form.username %}
   {% bootstrap_field form.email %}
   <div class="row">
-    <div class="col-md-6">{% bootstrap_field form.password1 %}</div>
-    <div class="col-md-6">{% bootstrap_field form.password2 %}</div>
+    <div class="col-lg-6">{% bootstrap_field form.first_name %}</div>
+    <div class="col-lg-6">{% bootstrap_field form.last_name %}</div>
+  </div>
+  <div class="bg-body-tertiary p-3 mb-3 rounded">
+    <div class="row">
+      <div class="col-lg-6">{% bootstrap_field form.password1 %}</div>
+      <div class="col-lg-6">{% bootstrap_field form.password2 %}</div>
+    </div>
   </div>
   <div class="text-end">
-    {% bootstrap_button button_type="submit" content="<i class='ri-check-line ri-lg me-1'></i>Registrarme" %}
+    {% bootstrap_button button_type="submit" content="Registrarme" %}
   </div>
 </form>
 {% endblock %}

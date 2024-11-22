@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class="text-center fst-italic my-5 text-info">
+       <i class="fa-solid fa-money-bill-transfer me-2"></i>"Envía y recibe dinero en segundos."
+    </h1>
+    <div class="d-flex flex-column flex-lg-row gap-4 align-items-md-center justify-content-md-center mb-4">
+        <p class="fs-4 mb-0">
+            "Con Money Share, transferir dinero es fácil, rápido y seguro.<br>
+            Perfecto para tus necesidades personales y empresariales."
+        </p>
+        <a href="{% url 'register' %}" class="btn btn-primary btn-lg text-nowrap">Empieza ahora</a>
+    </div>
+{% endblock %}
