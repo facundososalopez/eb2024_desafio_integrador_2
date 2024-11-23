@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% block title %}Usuarios{% endblock %}
+{% block content %}
+    <h1><i class="fa-solid fa-users fa-xs me-2"></i>Usuarios</h1>
+    
+    <form method="get" class="filter-form border border-secondary rounded p-3 mb-3 bg-body-tertiary">
+        <div class="row">
+            <div class="col-md-6">{% bootstrap_field filter.form.username__icontains %}</div>
+            <div class="col-md-6">{% bootstrap_field filter.form.is_staff %}</div>
+        </div>
+        <ul class="list-inline mb-0 text-end">
+            <li class="list-inline-item"><button class="btn btn-primary" type="submit">Buscar</button></li>
+            <li class="list-inline-item"><button class="btn btn-secondary" type="reset">Limpiar</button></li>
+        </ul>
+    </form>
+    {% bootstrap_messages %}
+    <div class="mb-3 fw-bold">
+    {{ page_obj.paginator.count }} registro{% if page_obj.paginator.count != 1 %}s{% endif %}.
+    </div>
+    <div class="table-responsive mb-3">
+        <table class="table table-hover table-striped align-middle caption-top">
+            <caption class="visually-hidden">Listado de usuarios</caption>
+            <thead>
+                <tr class="table-secondary">
+                <th scope="col">Usuario</th>
+                <th scope="col">Nombre y Apellido</th>
+                <th scope="col">Email</th>
+                <th scope="col" class="text-center">Es staff</th>
+                <th scope="col" class="text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for usuario in object_list %}
+                <tr>
+                <td>{{ usuario.username }}</td>
+                <td>{{ usuario.get_full_name }}</td>
+                <td>{{ usuario.email }}</td>
+                <td class="text-center">{% if usuario.is_staff %}SI{% else %}NO{% endif %}</td>
+                <td>
+                    <ul class="list-unstyled d-flex flex-row align-items-center justify-content-center gap-1 mb-0">
+                        <li>
+                            <a class="btn btn-link text-decoration-none" href="{% url 'usuarios:update' usuario.id %}">
+                                <i class="fa-solid fa-pen fa-lg"></i>
+                                <span class="visually-hidden">editar {{ usuario.username }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% if page_obj.paginator.num_pages > 1 %}
+        {% bootstrap_pagination page_obj justify_content="center" %}
+    {% endif %}
+{% endblock %}

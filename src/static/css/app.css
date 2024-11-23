@@ -14,6 +14,10 @@
     background-position: center center;
 }
 
+.money-color {
+    color: #85BB65 !important;
+}
+
 #login-form {
     max-width: 30rem;
     margin: 0 auto;

@@ -22,23 +22,26 @@
           </a>
         </li>
         {% else %}
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <div class="fa-solid fa-gear"></div> Administración
-          </a>
-          <ul class="dropdown-menu dropdown-menu-end">
-            <li>
-                <a class="dropdown-item" href="#">
-                  <i class="fa-solid fa-users me-2"></i>Usuarios
-                </a>
-            </li>
-            <li>
-                <a class="dropdown-item" href="{% url 'transferencia_motivo:list' %}">
-                  <i class="fa-solid fa-right-left me-2"></i>Motivos de Transferencia
-                </a>
-            </li>
-          </ul>
-        </li>
+        {% if user.is_staff %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <div class="fa-solid fa-gear"></div> Administración
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li>
+                  <a class="dropdown-item" href="{% url 'usuarios:list' %}">
+                    <i class="fa-solid fa-users me-2"></i>Usuarios
+                  </a>
+              </li>
+              <li>
+                  <a class="dropdown-item" href="{% url 'transferencia_motivo:list' %}">
+                    <i class="fa-solid fa-right-left me-2"></i>Motivos de Transferencia
+                  </a>
+              </li>
+            </ul>
+        </li>  
+        {% endif %}
+        
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle d-flex flex-row align-items-center gap-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             {% if user.avatar %}

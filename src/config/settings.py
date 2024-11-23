@@ -57,6 +57,7 @@ MY_APPS = [
 
 THIRD_PARTY_APPS = [
     'django_bootstrap5',
+    'django_filters',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + MY_APPS + THIRD_PARTY_APPS
