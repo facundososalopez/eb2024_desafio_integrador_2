@@ -1,0 +1,28 @@
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover table-bordered"> 
+            <thead class="table-dark">
+        <thead>
+            <tr>
+                <th>Cuenta</th>
+                <th>Cantidad de Uso</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cuenta in cuentas %}
+            {% if cuenta.cuenta_asociada__username != None %}
+            <tr>
+                <td>{{ cuenta.cuenta_asociada__username}}</td>
+                <td>{{ cuenta.total }}</td>
+                <td>
+                    <a href="{% url 'movimientos:transferencia_cuenta' cuenta.cuenta_asociada %}" class="btn btn-success border-2 btn-sm" data-bs-toggle="tooltip" data-bs-title="Ingrese dinero">
+                        <i class="fa-solid fa-money-bill-transfer"></i>
+                    </a>
+                
+                </td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+

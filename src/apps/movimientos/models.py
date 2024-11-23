@@ -1,13 +1,22 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
+from django.db.models import Count
 
+class MovimientoManager(models.Manager):
+    def cuentas_mas_utilizadas(self, usuario, limite=10):
+        return (
+            self.get_queryset()
+            .filter(cuenta=usuario)  # Filtra por el usuario logueado
+            .values('cuenta_asociada', 'cuenta_asociada__username')  # Agrupa por la cuenta asociada
+            .annotate(total=Count('cuenta_asociada'))  # Cuenta la cantidad de movimientos por cuenta asociada
+            .order_by('-total')[:limite] # Ordenar por cantidad de uso
+        )
 class Movimiento(models.Model):
     TIPO_CHOICES = [
         (1, "Ingreso de dinero"),
-        (2, "Transferencia realizada"),
+        (2, "Transferencia enviada"),
         (3, "Transferencia recibida"),
-        (4, "Egreso de dinero"),
     ]
 
     tipo = models.PositiveSmallIntegerField(choices=TIPO_CHOICES)
@@ -19,6 +28,8 @@ class Movimiento(models.Model):
     monto = models.DecimalField(max_digits=10, decimal_places=2)
     fecha = models.DateTimeField(auto_now_add=True)
 
+    objects = MovimientoManager()
+
     def __str__(self):
         return f"{self.get_tipo_display()} - {self.monto} ({self.fecha})"
     
@@ -29,3 +40,5 @@ class Movimiento(models.Model):
          if self.tipo == 4:
             self.monto =  self.monto * -1
          super().save(*args, **kwargs)
+
+    
