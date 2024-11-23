@@ -1,9 +1,10 @@
 from django.urls import path
 
-from .views import UsuarioRegistroView
+from .views import AdminUsuariosListView, AdminUsuariosUpdateView
 
-name_prefix = "usuarios_"
+app_name = 'usuarios'
 
 urlpatterns = [
-    # path("registro/", UsuarioRegistroView.as_view(), name=name_prefix + "register"),
+    path('', AdminUsuariosListView.as_view(), name="list"),
+    path('<int:pk>/editar', AdminUsuariosUpdateView.as_view(), name="update"),
 ]

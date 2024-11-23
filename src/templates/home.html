@@ -1,14 +1,27 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1 class="text-center fst-italic my-5 text-info">
+    <h1 class="text-center fst-italic my-5 money-color">
        <i class="fa-solid fa-money-bill-transfer me-2"></i>"Envía y recibe dinero en segundos."
     </h1>
-    <div class="d-flex flex-column flex-lg-row gap-4 align-items-md-center justify-content-md-center mb-4">
+    <div class="d-flex flex-column flex-lg-row gap-5 align-items-md-center justify-content-md-center mb-5">
         <p class="fs-4 mb-0">
             "Con Money Share, transferir dinero es fácil, rápido y seguro.<br>
             Perfecto para tus necesidades personales y empresariales."
         </p>
-        <a href="{% url 'register' %}" class="btn btn-primary btn-lg text-nowrap">Empieza ahora</a>
+        <a href="{% url 'register' %}" class="btn btn-primary btn-lg text-nowrap">
+            <div class="fa-solid fa-user-plus me-2"></div><br>
+            Regístrate
+        </a>
     </div>
+    <div class="d-flex align-items-center justify-content-center mb-5">
+        <ul class="list-unstyled mb-0">
+            <li>Rápido: Transferencias instantáneas en cualquier momento.</li>
+            <li>Seguro: Protección de datos con cifrado de última generación.</li>
+            <li>Fácil de usar: Plataforma intuitiva para todos los niveles.</li>
+            <li>Transparente: Sin costos ocultos ni sorpresas desagradables.</li>
+        </ul>
+    </div>
+    
+    <div class="text-center fs-1 fst-italic">¡Gracias por elegir Money Share!</div>
 {% endblock %}

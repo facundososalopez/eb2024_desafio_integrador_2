@@ -10,4 +10,10 @@ class UsuarioForm(UserCreationForm):
 class UsuarioUpdateForm(UserChangeForm):
     class Meta:
         model = Usuario
-        fields = ['username', 'email', 'first_name', 'last_name', 'avatar']
+        fields = ['email', 'first_name', 'last_name', 'avatar']
+
+class AdminUsuarioUpdateForm(UserChangeForm):
+    class Meta:
+        model = Usuario
+        fields = ['is_active', 'email', 'first_name', 'last_name', 'avatar', 'is_staff']
+

@@ -1,17 +1,20 @@
 from django.db.models.base import Model as Model
 from django.db.models.query import QuerySet
-from django.http import HttpRequest
 from django.http.response import HttpResponse as HttpResponse
-from django.shortcuts import render, redirect
-from .forms import UsuarioForm, UsuarioUpdateForm
+from django.shortcuts import redirect
+from .forms import UsuarioForm, UsuarioUpdateForm, AdminUsuarioUpdateForm
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, TemplateView, UpdateView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.decorators import login_not_required
 from django.utils.decorators import method_decorator
-from django.shortcuts import render
 from apps.movimientos.models import Movimiento
-from django.views.generic import ListView
+from django.contrib.auth.mixins import UserPassesTestMixin
+from django.contrib.messages.views import SuccessMessageMixin
+
+from django_filters.views import FilterView
+
+from .models import Usuario
 
 # Create your views here.
 
@@ -49,4 +52,32 @@ class UsuarioUpdateProfileView(UpdateView):
 
     def get_object(self, queryset: QuerySet[any] | None = ...) -> Model:
         return self.request.user
-  
+
+# Administracion de usuarios views
+class AdminUsuariosListView(UserPassesTestMixin, FilterView):
+    filterset_fields = {
+        'username': ['icontains'],
+        'is_staff': ['exact'],
+    }
+    model = Usuario
+    paginate_by = 10
+    template_name = 'usuarios/admin_list.html'
+
+    def test_func(self):
+        return self.request.user.is_staff
+
+class AdminUsuariosUpdateView(SuccessMessageMixin, UserPassesTestMixin, UpdateView):
+    model = Usuario
+    form_class = AdminUsuarioUpdateForm
+    success_url = reverse_lazy("usuarios:list")
+    success_message = "Datos del usuario actualizados con exito."
+    template_name = 'usuarios/admin_update.html'
+
+    def get_success_url(self) -> str:
+        o = self.object
+        if (o.id == self.request.user.id) and not o.is_staff:
+            self.success_url = reverse_lazy('panel')
+        return super().get_success_url()
+
+    def test_func(self):
+        return self.request.user.is_staff
