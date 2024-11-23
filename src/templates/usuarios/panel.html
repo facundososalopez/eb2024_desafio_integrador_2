@@ -1,17 +1,10 @@
 {% extends "base.html" %}
+{% load django_bootstrap5 %}
 
 {% block title %}Panel{% endblock %}
 {% block content %}
     <h1 class="h2"><i class="fa-regular fa-user fa-xs me-2"></i>Benvenido <span class="text-info">{{ user.username }}</span>!!!</h1>
-    {% if messages %}
-            <div class="alert alert-info">
-                <ul class="mb-0">
-                    {% for message in messages %}
-                        <li>{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-        {% endif %}
+    {% bootstrap_messages %}
     <section class="d-flex flex-column flex-md-row gap-4 align-items-center justify-content-center p-3 mb-3 fs-2">
         <div class="d-inline-block bg-body-tertiary py-3 px-4 rounded-3">
             <span class="visually-hidden">Su saldo:</span>
@@ -20,7 +13,7 @@
         </div>
         <ul class="list-inline d-flex flex-row gap-2 mb-0">
             <li class="list-inline-item">
-                <a href="#" class="btn btn-success border-2" data-bs-toggle="tooltip" data-bs-title="Ingrese dinero">
+                <a href="{% url 'movimientos:ingreso_dinero' %}" class="btn btn-success border-2" data-bs-toggle="tooltip" data-bs-title="Ingrese dinero">
                     <i class="fa-solid fa-plus fa-lg"></i>
                 </a>
             </li>
@@ -34,7 +27,7 @@
     <section id="favoritos" class="mb-4">
         <h2 class="h3 border-bottom"><i class="fa-regular fa-star fa-xs me-2"></i>Favoritos</h2>
         <div class="px-3">
-            <p class="mb-0 fst-italic text-secondary fw-bold">Sin favoritos.</p>
+            {% include 'movimientos/cuentas_favoritas.html' %}
             <div class="text-end">
                 <a href="#" class="fw-bold text-decoration-none">Administrar favoritos ...</a>
             </div>

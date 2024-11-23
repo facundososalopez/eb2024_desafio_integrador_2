@@ -1,6 +1,5 @@
 from django import forms
 from .models import Movimiento
-from django_bootstrap5.widgets import RadioSelectButtonGroup
 from apps.transferencia_motivo.models import MotivoTransferencia
 from apps.usuarios.models import Usuario
 
@@ -27,12 +26,11 @@ class TransferenciaForm(forms.Form):
         label="Monto:",
         max_digits=10,
         decimal_places=2,
-        min_value=0.01,
+        min_value=10,
         required=True
     )
     transferencia_motivo = forms.ModelChoiceField(
         queryset=MotivoTransferencia.objects.all(),
-        #widget=RadioSelectButtonGroup,
         required=True,
         label="Selecciona el motivo de la transferencia:"
     )
@@ -40,4 +38,14 @@ def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)  # Obtiene el usuario de los argumentos
         super().__init__(*args, **kwargs)
         if user:
-            self.fields['cuenta_asociada_id'].queryset = Usuario.objects.exclude(id=user.id)  # Excluye al usuario logueado
+            self.fields['cuenta_asociada_id'].queryset = Usuario.objects.exclude(id=user.id)
+
+class IngresoDineroForm(forms.Form):
+    monto = forms.DecimalField(
+        label="Monto a ingresar:",
+        max_digits=10,
+        decimal_places=2,
+        min_value=0.01,
+        required=True,
+        widget=forms.NumberInput(attrs={"class": "form-control", "placeholder": "Ingrese el monto"})
+    ) # Excluye al usuario logueado

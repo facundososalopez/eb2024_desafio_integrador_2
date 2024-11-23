@@ -6,8 +6,7 @@
             <tr>
                 <th>Tipo</th>
                 <th>Monto</th>
-                <th>Cuenta</th>
-                <th>Cuenta Asociada</th>
+                <th>Cuenta Vinculada</th>
                 <th>Tipo de Transferencia</th>
                 <th>Fecha</th>
             </tr>
@@ -17,8 +16,6 @@
             <tr>
                 <td>{{ movimiento.get_tipo_display }}</td>
                 <td class="{% if movimiento.monto < 0 %}text-danger{% endif %}">${{ movimiento.monto }}</td>
-
-                <td>{{ movimiento.cuenta.username }}</td>
                 <td>
                     {% if movimiento.cuenta_asociada %}
                         {{ movimiento.cuenta_asociada.username }}

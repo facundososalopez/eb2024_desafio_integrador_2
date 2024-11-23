@@ -1,0 +1,21 @@
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover table-bordered"> 
+            <thead class="table-dark">
+        <thead>
+            <tr>
+                <th>Cuenta</th>
+                <th>Uso</th>
+                <th>{{ ff }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cuenta in cuentas %}
+            <tr>
+                <td>{{ cuenta.cuenta_asociada }}</td>
+                <td>{{ cuenta.total }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+

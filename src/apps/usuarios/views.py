@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import login_not_required
 from django.utils.decorators import method_decorator
 from django.shortcuts import render
 from apps.movimientos.models import Movimiento
+from django.views.generic import ListView
 
 # Create your views here.
 
@@ -34,6 +35,12 @@ class UsuarioLogoutView(LogoutView):
 
 class UsuarioPanelView(TemplateView):
     template_name = 'usuarios/panel.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['movimientos'] = Movimiento.objects.filter(cuenta=self.request.user.id).order_by("-fecha")[:5]
+        limite = int(self.request.GET.get('limite', 10))  # Valor dinámico de límite
+        context['cuentas'] = Movimiento.objects.cuentas_mas_utilizadas(limite=limite)
+        return context
 
 class UsuarioUpdateProfileView(UpdateView):
     form_class = UsuarioUpdateForm
@@ -42,7 +49,4 @@ class UsuarioUpdateProfileView(UpdateView):
 
     def get_object(self, queryset: QuerySet[any] | None = ...) -> Model:
         return self.request.user
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['movimientos'] = Movimiento.objects.filter(cuenta=self.request.user.id).order_by("-fecha")[:5]
-        return context
+  

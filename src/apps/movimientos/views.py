@@ -3,7 +3,7 @@ from django.views.generic import ListView
 from apps.transferencia_motivo.models import MotivoTransferencia
 from apps.usuarios.models import Usuario
 from .models import Movimiento
-from .forms import MovimientoForm
+from .forms import IngresoDineroForm, MovimientoForm
 from django.shortcuts import render, get_object_or_404
 from django.db import transaction
 from django.contrib import messages
@@ -11,20 +11,6 @@ from .forms import TransferenciaForm
 from django.http import HttpResponseRedirect
 from django.views.generic import FormView
 from django.urls import reverse
-
-
-
-
-
-def crear_movimiento(request):
-    if request.method == "POST":
-        form = MovimientoForm(request.POST)
-        if form.is_valid():
-         form.save()
-        return redirect("movimientos:historial")
-    else:
-        form = MovimientoForm()
-    return render(request, "movimientos/crear_movimiento.html", {"form": form})
 
 class HistorialMovimientos(ListView):
     model = Movimiento
@@ -40,7 +26,7 @@ class HistorialMovimientos(ListView):
         # Agregar datos adicionales al contexto
         context = super().get_context_data(**kwargs)
         context["total_paginas"] = context["paginator"].num_pages
-        context["monto_total"] = self.request.user.saldo
+        context["monto_total"] = self.request.user.saldo  
         return context
 
 class Transferencia(FormView):
@@ -107,10 +93,38 @@ class Transferencia(FormView):
         return self.render_to_response(self.get_context_data(form=form, usuarios=usuarios, motivos=motivos))
 
     def get_form_kwargs(self):
-        # Llama a los kwargs del formulario estándar
         kwargs = super().get_form_kwargs()
-        # Agrega el usuario logueado al formulario
         kwargs['user'] = self.request.user
         return kwargs
+
+class IngresoDinero(FormView):
+    template_name = "movimientos/ingreso_dinero.html"
+    form_class = IngresoDineroForm
+
+    def form_valid(self, form):
+        monto = form.cleaned_data["monto"]
+        usuario = self.request.user  # Usuario logueado
+
+        try:
+            with transaction.atomic():
+                usuario.saldo += monto
+                usuario.save()
+
+                Movimiento.objects.create(
+                    cuenta=usuario,
+                    cuenta_asociada=None,
+                    tipo="1",
+                    monto=monto,
+                )
+
+            messages.success(self.request, f"Se han ingresado ${monto:.2f} a tu cuenta.")
+        except Exception as e:
+            messages.error(self.request, f"Error al realizar el ingreso: {str(e)}")
+
+        return redirect("panel")
+
+    def form_invalid(self, form):
+        messages.error(self.request, "Por favor corrige los errores del formulario.")
+        return super().form_invalid(form)
 
 

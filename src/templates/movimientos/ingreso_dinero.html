@@ -3,16 +3,16 @@
 
 {% block content %}
     <div class="container mt-5">
-        <h1 class="text-center mb-4">Realizar Transferencia</h1>
+        <h1 class="text-center mb-4">Ingresar Dinero</h1>
         
         {% bootstrap_messages %}
         
-        <form method="post" action="{% url 'movimientos:transferencia' %}">
+        <form method="post" action="{% url 'movimientos:ingreso_dinero' %}">
             {% csrf_token %}
 
             {% bootstrap_form form %}
-                
-            <button type="submit" class="btn btn-primary w-100">Transferir</button>
+            
+            <button type="submit" class="btn btn-primary w-100">Ingresar</button>
         </form>
     </div>
 {% endblock %}
