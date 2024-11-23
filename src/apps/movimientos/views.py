@@ -3,7 +3,7 @@ from django.views.generic import ListView
 from apps.transferencia_motivo.models import MotivoTransferencia
 from apps.usuarios.models import Usuario
 from .models import Movimiento
-from .forms import IngresoDineroForm, MovimientoForm
+from .forms import IngresoDineroForm, TransferenciaCuentaForm
 from django.shortcuts import render, get_object_or_404
 from django.db import transaction
 from django.contrib import messages
@@ -31,18 +31,19 @@ class HistorialMovimientos(ListView):
 
 class Transferencia(FormView):
     template_name = 'movimientos/transferencia.html'
-    form_class = TransferenciaForm # Asociar el formulario creado
+    form_class = TransferenciaForm
 
     def form_valid(self, form):
-        # Recuperar los datos del formulario
-        cuenta_asociada_id = form.cleaned_data['cuenta_asociada_id'].id  # Asumiendo que el campo se llama 'cuenta_asociada_id' en el formularioT['cuenta_asociada_id']
+ 
+        cuenta_asociada_id = form.cleaned_data['cuenta_asociada_id']
+        print(cuenta_asociada_id) # 
        
         monto = form.cleaned_data['monto']
         transferencia_motivo = form.cleaned_data['transferencia_motivo']
 
         # Obtener el usuario origen (el usuario logueado)
         usuario_origen = get_object_or_404(Usuario, pk=self.request.user.id)
-        usuario_destino = get_object_or_404(Usuario, pk=cuenta_asociada_id)
+        usuario_destino = get_object_or_404(Usuario, pk=cuenta_asociada_id.id)
 
         #mostrar en consola usuarios
         print("Usuario origen:", usuario_origen)
@@ -88,13 +89,24 @@ class Transferencia(FormView):
 
     def form_invalid(self, form):
         # Esta función maneja lo que ocurre si el formulario es inválido
-        motivos = MotivoTransferencia.objects.all()  # Obtener todos los motivos
-        usuarios = Usuario.objects.exclude(id=self.request.user.id)  # Excluir el usuario logueado
+        motivos = MotivoTransferencia.objects.all()  
+        usuarios = Usuario.objects.exclude(id=self.request.user.id)
         return self.render_to_response(self.get_context_data(form=form, usuarios=usuarios, motivos=motivos))
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs['user'] = self.request.user
+        return kwargs
+
+class TransferenciaCuenta(FormView):
+    template_name = 'movimientos/transferencia_cuenta.html'
+    form_class = TransferenciaCuentaForm
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        cuenta_id = self.kwargs.get('cuenta_asociada_id')
+        kwargs['cuenta_asociada_id'] = cuenta_id  
+        kwargs['user'] = self.request.user  
         return kwargs
 
 class IngresoDinero(FormView):
@@ -125,6 +137,7 @@ class IngresoDinero(FormView):
 
     def form_invalid(self, form):
         messages.error(self.request, "Por favor corrige los errores del formulario.")
-        return super().form_invalid(form)
+        return super().form_invalid(form)  # Asegúrate de importar correctamente tu modelo Usuario
+
 
 

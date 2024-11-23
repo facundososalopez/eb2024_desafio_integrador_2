@@ -4,12 +4,13 @@ from django.conf import settings
 from django.db.models import Count
 
 class MovimientoManager(models.Manager):
-    def cuentas_mas_utilizadas(self, limite=10):
+    def cuentas_mas_utilizadas(self, usuario, limite=10):
         return (
             self.get_queryset()
-            .values('cuenta_asociada')
-            .annotate(total=Count('cuenta_asociada'))
-            .order_by('-total')[:limite]
+            .filter(cuenta=usuario)  # Filtra por el usuario logueado
+            .values('cuenta_asociada', 'cuenta_asociada__username')  # Agrupa por la cuenta asociada
+            .annotate(total=Count('cuenta_asociada'))  # Cuenta la cantidad de movimientos por cuenta asociada
+            .order_by('-total')[:limite] # Ordenar por cantidad de uso
         )
 class Movimiento(models.Model):
     TIPO_CHOICES = [

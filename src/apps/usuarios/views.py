@@ -39,7 +39,7 @@ class UsuarioPanelView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['movimientos'] = Movimiento.objects.filter(cuenta=self.request.user.id).order_by("-fecha")[:5]
         limite = int(self.request.GET.get('limite', 10))  # Valor dinámico de límite
-        context['cuentas'] = Movimiento.objects.cuentas_mas_utilizadas(limite=limite)
+        context['cuentas'] = Movimiento.objects.cuentas_mas_utilizadas(usuario=self.request.user.id, limite=limite)
         return context
 
 class UsuarioUpdateProfileView(UpdateView):

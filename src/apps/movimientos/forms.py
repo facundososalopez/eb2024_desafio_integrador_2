@@ -34,12 +34,6 @@ class TransferenciaForm(forms.Form):
         required=True,
         label="Selecciona el motivo de la transferencia:"
     )
-def __init__(self, *args, **kwargs):
-        user = kwargs.pop('user', None)  # Obtiene el usuario de los argumentos
-        super().__init__(*args, **kwargs)
-        if user:
-            self.fields['cuenta_asociada_id'].queryset = Usuario.objects.exclude(id=user.id)
-
 class IngresoDineroForm(forms.Form):
     monto = forms.DecimalField(
         label="Monto a ingresar:",
@@ -48,4 +42,32 @@ class IngresoDineroForm(forms.Form):
         min_value=0.01,
         required=True,
         widget=forms.NumberInput(attrs={"class": "form-control", "placeholder": "Ingrese el monto"})
-    ) # Excluye al usuario logueado
+    )
+
+class TransferenciaCuentaForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        cuenta_asociada_id = kwargs.pop('cuenta_asociada_id', None)
+        user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+
+        if cuenta_asociada_id:
+            self.fields['cuenta_asociada_id'].initial = cuenta_asociada_id
+            self.fields['cuenta_asociada_id'].queryset = Usuario.objects.filter(id=cuenta_asociada_id)
+
+    cuenta_asociada_id = forms.ModelChoiceField(
+        queryset=Usuario.objects.all(),
+        label="Selecciona la cuenta destino:",
+        required=True,
+    )
+    monto = forms.DecimalField(
+        label="Monto:",
+        max_digits=10,
+        decimal_places=2,
+        min_value=10,
+        required=True
+    )
+    transferencia_motivo = forms.ModelChoiceField(
+        queryset=MotivoTransferencia.objects.all(),
+        required=True,
+        label="Selecciona el motivo de la transferencia:"
+    )
