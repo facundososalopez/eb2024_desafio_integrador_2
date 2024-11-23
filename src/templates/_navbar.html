@@ -41,12 +41,16 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle d-flex flex-row align-items-center gap-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <span class="avatar" style="background-image: url({% static 'assets/images/user.svg' %})"></span>
+            {% if user.avatar %}
+              <span class="avatar" style="background-image: url({{ user.avatar.url }})"></span>
+            {% else %}
+              <span class="avatar" style="background-image: url({% static 'assets/images/user.svg' %})"></span>
+            {% endif %}
             {{ user.username }}
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
             <li>
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="{% url 'profile' %}">
                   <i class="fa-regular fa-id-card me-2"></i>Perfil
                 </a>
             </li>
