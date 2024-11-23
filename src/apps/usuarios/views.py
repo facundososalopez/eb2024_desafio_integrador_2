@@ -9,6 +9,8 @@ from django.views.generic import CreateView, TemplateView, UpdateView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.decorators import login_not_required
 from django.utils.decorators import method_decorator
+from django.shortcuts import render
+from apps.movimientos.models import Movimiento
 
 # Create your views here.
 
@@ -40,3 +42,7 @@ class UsuarioUpdateProfileView(UpdateView):
 
     def get_object(self, queryset: QuerySet[any] | None = ...) -> Model:
         return self.request.user
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['movimientos'] = Movimiento.objects.filter(cuenta=self.request.user.id).order_by("-fecha")[:5]
+        return context

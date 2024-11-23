@@ -2,7 +2,9 @@
 {% load django_bootstrap5 %}
 {% block content %}
     <h1>Historial de Movimientos</h1>
-    <h3 class="text-end text-warning">Monto Total: ${{ monto_total }}</h3>
+    <h3 class="text-end text-info">
+        <i class="fa-solid fa-sack-dollar me-1 text-warning"></i> Saldo Actual: ${{ monto_total }}
+    </h3>
 
     {% if movimientos %}
 <div class="table-responsive">

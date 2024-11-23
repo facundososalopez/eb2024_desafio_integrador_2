@@ -7,7 +7,6 @@ class Movimiento(models.Model):
         (1, "Ingreso de dinero"),
         (2, "Transferencia realizada"),
         (3, "Transferencia recibida"),
-        (4, "Egreso de dinero"),
     ]
 
     tipo = models.PositiveSmallIntegerField(choices=TIPO_CHOICES)

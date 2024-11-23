@@ -1,0 +1,45 @@
+
+    {% if movimientos %}
+<div class="table-responsive">
+    <table class="table table-striped table-hover table-bordered"> 
+        <thead class="table-dark">
+            <tr>
+                <th>Tipo</th>
+                <th>Monto</th>
+                <th>Cuenta</th>
+                <th>Cuenta Asociada</th>
+                <th>Tipo de Transferencia</th>
+                <th>Fecha</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for movimiento in movimientos %}
+            <tr>
+                <td>{{ movimiento.get_tipo_display }}</td>
+                <td class="{% if movimiento.monto < 0 %}text-danger{% endif %}">${{ movimiento.monto }}</td>
+
+                <td>{{ movimiento.cuenta.username }}</td>
+                <td>
+                    {% if movimiento.cuenta_asociada %}
+                        {{ movimiento.cuenta_asociada.username }}
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </td>
+                <td>
+                    {% if movimiento.transferencia_motivo %}
+                        {{ movimiento.transferencia_motivo }}
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </td>
+                <td>{{ movimiento.fecha|date:"d-m-Y H:i" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="mb-0 fst-italic text-secondary fw-bold">Sin historial.</p>
+    {% endif %}
+</div>
+
