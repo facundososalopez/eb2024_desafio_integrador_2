@@ -5,7 +5,7 @@ from django.shortcuts import redirect
 from .forms import UsuarioForm, UsuarioUpdateForm, AdminUsuarioUpdateForm
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, TemplateView, UpdateView
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
 from django.contrib.auth.decorators import login_not_required
 from django.utils.decorators import method_decorator
 from apps.movimientos.models import Movimiento
@@ -52,6 +52,11 @@ class UsuarioUpdateProfileView(UpdateView):
 
     def get_object(self, queryset: QuerySet[any] | None = ...) -> Model:
         return self.request.user
+    
+class UsuarioCambiarPasswordView(SuccessMessageMixin, PasswordChangeView):
+    template_name = 'usuarios/cambiar_password.html'
+    success_url = reverse_lazy("panel")
+    success_message = "Contraseña cambiada con exito."
 
 # Administracion de usuarios views
 class AdminUsuariosListView(UserPassesTestMixin, FilterView):

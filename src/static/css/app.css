@@ -18,7 +18,7 @@
     color: #85BB65 !important;
 }
 
-#login-form {
+#login-form, .cambiar-contrasenia-form {
     max-width: 30rem;
     margin: 0 auto;
 }

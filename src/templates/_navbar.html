@@ -41,7 +41,6 @@
             </ul>
         </li>  
         {% endif %}
-        
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle d-flex flex-row align-items-center gap-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             {% if user.avatar %}
@@ -55,6 +54,11 @@
             <li>
                 <a class="dropdown-item" href="{% url 'profile' %}">
                   <i class="fa-regular fa-id-card me-2"></i>Perfil
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="{% url 'cambiar-password' %}">
+                  <i class="fa-solid fa-key me-2"></i>Cambiar contraseña
                 </a>
             </li>
             <li><hr class="dropdown-divider"></li>
