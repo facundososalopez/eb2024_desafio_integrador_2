@@ -1,11 +1,12 @@
 
     <div class="table-responsive">
-        <table class="table table-striped table-hover table-bordered"> 
+        <table class="table table-striped table-hover table-bordered align-middle"> 
             <thead class="table-dark">
         <thead>
             <tr>
-                <th>Cuenta</th>
-                <th>Cantidad de Uso</th>
+                <th class="text-center">Cuenta</th>
+                <th class="text-center">Cantidad de Uso</th>
+                <th class="text-center">Acción</th>
             </tr>
         </thead>
         <tbody>
@@ -13,12 +14,11 @@
             {% if cuenta.cuenta_asociada__username != None %}
             <tr>
                 <td>{{ cuenta.cuenta_asociada__username}}</td>
-                <td>{{ cuenta.total }}</td>
-                <td>
-                    <a href="{% url 'movimientos:transferencia_cuenta' cuenta.cuenta_asociada %}" class="btn btn-success border-2 btn-sm" data-bs-toggle="tooltip" data-bs-title="Ingrese dinero">
-                        <i class="fa-solid fa-money-bill-transfer"></i>
+                <td class="text-end">{{ cuenta.total }}</td>
+                <td class="text-center">
+                    <a href="{% url 'movimientos:transferencia_cuenta' cuenta.cuenta_asociada %}" class="btn btn-success btn-sm" data-bs-toggle="tooltip" data-bs-title="Ingrese dinero">
+                        <i class="fa-solid fa-money-bill-transfer fa-lg"></i>
                     </a>
-                
                 </td>
             </tr>
             {% endif %}

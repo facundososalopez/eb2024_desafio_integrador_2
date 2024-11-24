@@ -1,33 +1,32 @@
 
     {% if movimientos %}
 <div class="table-responsive">
-    <table class="table table-striped table-hover table-bordered"> 
+    <table class="table table-striped table-hover table-bordered align-middle"> 
         <thead class="table-dark">
             <tr>
-                <th>Fecha</th>
-                <th>Tipo</th>
-                <th>Monto</th>
-                <th>Cuenta Vinculada</th>
-                <th>Tipo de Transferencia</th>
-               
+                <th class="text-center">Fecha</th>
+                <th class="text-center">Tipo</th>
+                <th class="text-center">Monto</th>
+                <th class="text-center">Cuenta Vinculada</th>
+                <th class="text-center">Motivo Transferencia</th>
             </tr>
         </thead>
         <tbody>
             {% for movimiento in movimientos %}
             <tr>
-                <td>{{ movimiento.fecha|date:"d-m-Y H:i" }}</td>
+                <td class="text-center text-nowrap">{{ movimiento.fecha|date:"d/m/Y H:i" }}</td>
                 <td>{{ movimiento.get_tipo_display }}</td>
-                <td class="{% if movimiento.get_tipo_display == 'Transferencia enviada' %}text-danger{% endif %}">
+                <td class="text-end {% if movimiento.get_tipo_display == 'Transferencia enviada' %}text-danger{% endif %}">
                     {% if movimiento.get_tipo_display == 'Transferencia enviada' %} - {% endif %}{{ movimiento.monto }}
                 </td>
-                <td>
+                <td class="text-center">
                     {% if movimiento.cuenta_asociada %}
                         {{ movimiento.cuenta_asociada.username }}
                     {% else %}
                         N/A
                     {% endif %}
                 </td>
-                <td>
+                <td class="text-center">
                     {% if movimiento.transferencia_motivo %}
                         {{ movimiento.transferencia_motivo }}
                     {% else %}
