@@ -6,7 +6,7 @@ Ecom Python Bootcamp 20204 - Desafío Integrador 2
 **Money Share** es una plataforma diseñada para gestionar cuentas y transacciones financieras entre usuarios. Este sistema ofrece herramientas para realizar transferencias, administrar saldos, visualizar comprobantes y mantener un historial de movimientos. Además, incluye funcionalidades avanzadas para usuarios administradores.
 
 ## Integrantes del equipo
-Andrea, Matias Galo
+Andrea, Matias Galo <br>
 Sosa Lopez, Facundo Samuel
 
 ## Requisitos Previos
