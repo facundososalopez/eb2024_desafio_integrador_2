@@ -27,18 +27,18 @@ source venv/bin/activate  # En Windows: venv\Scripts\activate
 ### 3. Instalar dependencias
 pip install -r requirements/base.txt
 ### 4. Configurar variables de entorno creando un archivo .env (ejemplo)
-#### ENVIRONMENT
+#### - ENVIRONMENT
   SECRET_KEY=django-insecure-abc123456<br>
   DJANGO_DEBUG=True<br>
   ENVIRONMENT_RUN=development<br>
   DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1<br>
-#### DB (MYSQL)
+#### - DB (MYSQL)
   DB_NAME=moneyshare_db<br>
   DB_USER=admin<br>
   DB_PASSWORD=supersecurepassword<br>
   DB_HOST=127.0.0.1<br>
   DB_PORT=3306<br>
-#### EMAIL (SMTP)
+#### - EMAIL (SMTP)
   EMAIL_HOST=smtp.gmail.com<br>
   EMAIL_PORT=587<br>
   EMAIL_HOST_USER=tuemail<br>
