@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% block title %}Cambio de contraseña exitoso{% endblock %}
+
+{% block content %}
+<h1 class=" visually-hidden"><i class="fa-solid fa-lock-open fa-xs me-2"></i>Cambio de contraseña exitoso</h1>
+{% bootstrap_messages %}
+<div class="alert alert-success">
+  <div class="d-flex flex-row align-items-center gap-3">
+    <i class="fa-solid fa-hands-clapping fa-2x"></i>
+    <p class="mb-0">
+      Fecilitaciones!!!<br>
+      Ha cambiado su contraseña exitosamente. Por favor, inicie sesión con su nueva contraseña
+      <a class="text-reset fw-bold text-decoration-none" href="{% url 'login' %}">AQUÍ <i class="fa-solid fa-hand-point-left fa-lg"></i></a>.
+    </p>
+  </div>
+</div>
+{% endblock %}

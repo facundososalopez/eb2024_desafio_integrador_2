@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% block title %}Solicitud de cambio de contraseña exitosa{% endblock %}
+
+{% block content %}
+<h1 class=" visually-hidden"><i class="fa-solid fa-lock-open fa-xs me-2"></i>Solicitud de cambio de contraseña exitosa</h1>
+{% bootstrap_messages %}
+<div class="alert alert-success">
+  <div class="d-flex flex-row align-items-center gap-3">
+    <i class="fa-solid fa-hands-clapping fa-2x"></i>
+    <p class="mb-0">
+      Solicitud de cambio de contraseña exitosa!!!<br>
+      Se le ha enviado un correo electr&oacute;nico al email ingresado con instrucciones para restablecer su contraseña.
+    </p>
+  </div>
+</div>
+{% endblock %}

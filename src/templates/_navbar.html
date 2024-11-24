@@ -22,7 +22,7 @@
           </a>
         </li>
         {% else %}
-        {% if user.is_staff %}
+        {% if user.is_staff or user.is_superuser %}
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <div class="fa-solid fa-gear"></div> Administración
@@ -49,6 +49,12 @@
               <span class="avatar" style="background-image: url({% static 'assets/images/user.svg' %})"></span>
             {% endif %}
             {{ user.username }}
+            {% if user.is_superuser %}
+              (superuser)
+            {% elif user.is_staff %}
+              (staff)
+            {% endif %}
+            
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
             <li>
@@ -58,7 +64,7 @@
             </li>
             <li>
                 <a class="dropdown-item" href="{% url 'cambiar-password' %}">
-                  <i class="fa-solid fa-key me-2"></i>Cambiar contraseña
+                  <i class="fa-solid fa-lock-open me-2"></i>Cambiar contraseña
                 </a>
             </li>
             <li><hr class="dropdown-divider"></li>

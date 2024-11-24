@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% block title %}Solicitud para restablecer contraseña{% endblock %}
+
+{% block content %}
+<h1><i class="fa-solid fa-lock-open fa-xs me-2"></i>Solicitud para restablecer contraseña</h1>
+{% bootstrap_messages %}
+<form method="post" class="cambiar-contrasenia-form border border-secondary rounded p-3 mt-4">
+    <p class="lead">Por favor, ingrese su correo electr&oacute;nico.</p>
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <div class="text-end">
+    {% bootstrap_button button_type="submit" content="Restablecer" %}
+    </div>
+</form>
+{% endblock %}

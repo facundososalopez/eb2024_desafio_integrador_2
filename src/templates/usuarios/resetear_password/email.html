@@ -1,0 +1,17 @@
+<div style="font-size: 1.2rem;">
+    Estimado usuario, <span style="font-weight: bold; color: #507938;">{{ user }}</span>:
+    <p>
+        Hemos recibido una solicitud para restablecer la contraseña de su cuenta en Money Share.
+    </p>
+    <p>
+        Para restablecer su contraseña, siga el siguiente enlace:<br>
+        {{ protocol}}://{{ domain }}{% url 'password_reset_confirm' uidb64=uid token=token %}
+    </p>
+    <p>
+        Si no ha solicitado un restablecimiento de contraseña, ignore este correo electrónico.
+    </p>
+    Saludos,
+    <span style="font-weight: bold; color: #507938; font-size: 1.1em;">
+        Money Share Team.
+    </span>
+</div>

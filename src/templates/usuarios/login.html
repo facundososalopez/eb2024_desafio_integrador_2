@@ -11,5 +11,10 @@
   <div class="text-end">
     {% bootstrap_button button_type="submit" content="Ingresar" %}
   </div>
+  <hr>
+  <div class="fw-bold">
+    <a class="text-decoration-none" href="{% url 'password_reset' %}">¿Has olvidado tu contraseña? <i class="fa-solid fa-lock-open"></i></a>
+  </div>
 </form>
+
 {% endblock %}
