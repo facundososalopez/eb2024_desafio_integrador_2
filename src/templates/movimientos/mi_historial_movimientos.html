@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 {% load django_bootstrap5 %}
 {% block content %}
-    <h1>Historial de Movimientos</h1>
-    <h3 class="text-end text-info">
-        <i class="fa-solid fa-sack-dollar me-1 text-warning"></i> Saldo Actual: ${{ monto_total }}
+    <h1>Mi historial de transacciones</h1>
+    <h3 class="text-end text-info" style="margin-bottom: 15px;">
+        <i class="fa-solid fa-sack-dollar me-1 text-warning"></i> Saldo Actual: ($) {{ monto_total }}
     </h3>
+ <!-- Formulario de Filtros -->
+  {% include 'movimientos/_filtro_mi_historial.html' %}
 
     {% if movimientos %}
 <div class="table-responsive">
@@ -16,6 +18,7 @@
                 <th class="text-center">Monto</th>
                 <th class="text-center">Cuenta Asociada</th>
                 <th class="text-center">Motivo Transferencia</th>
+                <th class="text-center">Comprobante</th>
             </tr>
         </thead>
         <tbody>
@@ -23,7 +26,7 @@
             <tr>
                 <td class="text-center text-nowrap">{{ movimiento.fecha|date:"d/m/Y H:i" }}</td>
                 <td>{{ movimiento.get_tipo_display }}</td>
-                <td class="text-end {% if movimiento.get_tipo_display == 'Transferencia enviada' %}text-danger{% endif %}">
+                <td class="text-end {% if movimiento.get_tipo_display == 'Transferencia enviada' %}text-danger {% else %} text-success {% endif %}">
                     {% if movimiento.get_tipo_display == 'Transferencia enviada' %} - {% endif %}{{ movimiento.monto }}
                 </td>
                 <td class="text-center text-nowrap">
@@ -39,6 +42,11 @@
                     {% else %}
                         N/A
                     {% endif %}
+                </td>
+                <td class="text-center">
+                    <a class="btn btn-link text-decoration-none" href="{% url 'movimientos:movimiento_detail' movimiento.id %}">
+                        <i class="fa-solid fa-file-lines fa-lg"></i>
+                    </a>
                 </td>
             </tr>
             {% endfor %}

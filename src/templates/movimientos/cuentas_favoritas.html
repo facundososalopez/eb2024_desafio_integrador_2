@@ -1,11 +1,11 @@
-
+{% if cuentas %}
     <div class="table-responsive">
         <table class="table table-striped table-hover table-bordered align-middle"> 
             <thead class="table-dark">
         <thead>
             <tr>
                 <th class="text-center">Cuenta</th>
-                <th class="text-center">Cantidad de Uso</th>
+                <th class="text-center">Cantidad de Transferencias</th>
                 <th class="text-center">Acción</th>
             </tr>
         </thead>
@@ -25,4 +25,7 @@
             {% endfor %}
         </tbody>
     </table>
-
+</div>
+{% else %}
+    <p class="mb-0 fst-italic text-secondary fw-bold">Sin cuentas favoritas.</p>
+{% endif %}
