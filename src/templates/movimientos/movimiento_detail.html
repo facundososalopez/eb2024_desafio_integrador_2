@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% block content %}
+<div class="container my-5">
+    <div class="card shadow" style="margin-bottom: 4%;">
+        <div class="text-white text-center">
+            <h1 class="h3 mb-0">Comprobante</h1>
+        </div>
+        <div class="card-body">
+            <p><strong>Tipo:</strong> {{ movimiento.get_tipo_display }}</p>
+            {% if movimiento.get_tipo_display != 'Ingreso de dinero' %}
+            <p><strong>Cuenta Asociada:</strong> {{ movimiento.cuenta_asociada.username }}</p>
+            {% endif %}
+            <p><strong>Fecha:</strong> {{ movimiento.fecha|date:"d/m/Y H:i" }}</p>
+            {% if movimiento.get_tipo_display != 'Ingreso de dinero' %}
+            <p><strong>Motivo de Transferencia:</strong> {{ movimiento.transferencia_motivo }}</p>
+            {% endif %}
+            <p><strong>Monto:</strong> ${{ movimiento.monto }}</p>
+        </div>
+       
+    </div>
+    <div class=" text-center">
+        {% if request.META.HTTP_REFERER and 'panel' in request.META.HTTP_REFERER %}
+            <!-- Si vino del panel, redirigir al panel -->
+            <a href="{% url 'panel' %}" class="btn btn-secondary">Volver al Panel</a>
+        {% elif request.META.HTTP_REFERER and 'admin' in request.META.HTTP_REFERER %}
+            <!-- Si vino del admin, redirigir al admin -->
+            <a href="{% url 'movimientos:admin_historial' %}" class="btn btn-secondary">Volver a Historial</a>
+        {% else %}
+            <!-- Si no, redirigir al listado de movimientos -->
+            <a href="{% url 'movimientos:historial' %}" class="btn btn-secondary">Volver a Mi Historial</a>
+        {% endif %}
+    </div>
+   
+</div>
+<div class="card-footer text-center">
+    <!-- Botón de impresión con ícono de Font Awesome -->
+    <button class="btn btn-outline-primary" onclick="window.print();">
+        <i class="fas fa-print"></i> Imprimir
+    </button>
+</div>
+{% endblock %}

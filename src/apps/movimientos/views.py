@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import ListView
 from apps.transferencia_motivo.models import MotivoTransferencia
 from apps.usuarios.models import Usuario
-from .models import Movimiento
+from .models import Movimiento, MovimientoFilter, MovimientoAdmin, MovimientoAdminFilter
 from .forms import IngresoDineroForm, TransferenciaCuentaForm
 from django.shortcuts import render, get_object_or_404
 from django.db import transaction
@@ -11,12 +11,15 @@ from .forms import TransferenciaForm
 from django.http import HttpResponseRedirect
 from django.views.generic import FormView
 from django.urls import reverse
+from django.views.generic.detail import DetailView
+from django_filters.views import FilterView
 
-class HistorialMovimientos(ListView):
+class HistorialMovimientos(FilterView):
     model = Movimiento
-    template_name = "movimientos/historial_movimientos.html"
+    template_name = "movimientos/mi_historial_movimientos.html"
     context_object_name = "movimientos"
     paginate_by = 10 # Número de elementos por página
+    filterset_class = MovimientoFilter
 
     def get_queryset(self):
         # Filtrar movimientos por el usuario logueado
@@ -28,6 +31,35 @@ class HistorialMovimientos(ListView):
         context["total_paginas"] = context["paginator"].num_pages
         context["monto_total"] = self.request.user.saldo  
         return context
+    # desactivo la paginacion
+    def get(self, request, *args, **kwargs):
+        # Verifica si el GET proviene de un filtro, es decir, tiene parámetros
+        if 'fecha' in self.request.GET or 'cuenta_asociada' in self.request.GET or 'tipo' in self.request.GET or  'transferencia_motivo' in self.request.GET:
+            self.paginate_by = 99999999  # Paginación desactivada
+        else:
+            # Acceso directo sin filtros aplicados
+            self.paginate_by = 10  # Paginación normal si no hay filtros
+
+        return super().get(request, *args, **kwargs) 
+class HistorialMovimientosAdmin(FilterView):
+    model = MovimientoAdmin
+    template_name = "movimientos/admin_historial_movimientos.html"
+    context_object_name = "movimientos"
+    paginate_by = 10 # Número de elementos por página
+    filterset_class = MovimientoAdminFilter
+
+    def get_queryset(self):
+        return Movimiento.objects.all().order_by("-fecha")
+    # desactivo la paginacion
+    def get(self, request, *args, **kwargs):
+        # Verifica si el GET proviene de un filtro, es decir, tiene parámetros
+        if 'fecha' in self.request.GET or 'cuenta_asociada' in self.request.GET or 'tipo' in self.request.GET or 'cuenta' in self.request.GET or 'transferencia_motivo' in self.request.GET:
+            self.paginate_by = 99999999  # Paginación desactivada
+        else:
+            # Acceso directo sin filtros aplicados
+            self.paginate_by = 10  # Paginación normal si no hay filtros
+
+        return super().get(request, *args, **kwargs) 
 
 class Transferencia(FormView):
     template_name = 'movimientos/transferencia.html'
@@ -137,7 +169,12 @@ class IngresoDinero(FormView):
 
     def form_invalid(self, form):
         messages.error(self.request, "Por favor corrige los errores del formulario.")
-        return super().form_invalid(form)  # Asegúrate de importar correctamente tu modelo Usuario
+        return super().form_invalid(form)
+
+class MovimientoDetailView(DetailView):
+    model = Movimiento
+    template_name = 'movimientos/movimiento_detail.html'
+    context_object_name = 'movimiento'
 
 
 

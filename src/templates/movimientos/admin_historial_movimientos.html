@@ -1,13 +1,20 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% block content %}
+    <h1>Mi historial de transacciones</h1>
+ <!-- Formulario de Filtros -->
+  {% include 'movimientos/_filtro_mi_historial.html' %}
 
     {% if movimientos %}
 <div class="table-responsive">
     <table class="table table-striped table-hover table-bordered align-middle"> 
         <thead class="table-dark">
             <tr>
-                <th class="text-center">Fecha</th>
+                <th class="text-center">Fecha Hora</th>
                 <th class="text-center">Tipo</th>
                 <th class="text-center">Monto</th>
-                <th class="text-center">Cuenta Vinculada</th>
+                <th class="text-center">Cuenta Origen</th>
+                <th class="text-center">Cuenta Destino</th>
                 <th class="text-center">Motivo Transferencia</th>
                 <th class="text-center">Comprobante</th>
             </tr>
@@ -20,14 +27,17 @@
                 <td class="text-end {% if movimiento.get_tipo_display == 'Transferencia enviada' %}text-danger {% else %} text-success {% endif %}">
                     {% if movimiento.get_tipo_display == 'Transferencia enviada' %} - {% endif %}{{ movimiento.monto }}
                 </td>
-                <td class="text-center">
+                <td class="text-center text-nowrap">
+                    {{ movimiento.cuenta.username }}
+                </td>
+                <td class="text-center text-nowrap">
                     {% if movimiento.cuenta_asociada %}
                         {{ movimiento.cuenta_asociada.username }}
                     {% else %}
                         N/A
                     {% endif %}
                 </td>
-                <td class="text-center">
+                <td class="text-center text-nowrap">
                     {% if movimiento.transferencia_motivo %}
                         {{ movimiento.transferencia_motivo }}
                     {% else %}
@@ -43,8 +53,15 @@
             {% endfor %}
         </tbody>
     </table>
-    {% else %}
-    <p class="mb-0 fst-italic text-secondary fw-bold">Sin historial.</p>
-    {% endif %}
 </div>
+{{ paginator.number }}
+<br>
+{% bootstrap_pagination page_obj justify_content='center' %}
+{% else %}
+<div class="alert alert-warning text-center" role="alert">
+    No existen movimientos registrados.
+</div>
+{% endif %}
+
+{% endblock %}
 
