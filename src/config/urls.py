@@ -8,6 +8,7 @@ from . import views
 
 # Vistas de apps.usuarios que quiero que tenga path desde de la raiz
 from apps.usuarios import views as usuarios_views
+from apps.movimientos import views as movimientos_views
 
 urlpatterns = [
     path('', views.HomeView.as_view(), name='home'),
@@ -24,8 +25,9 @@ urlpatterns = [
     path('resetear-password/complete', usuarios_views.UsuarioResetearPasswordCompleteView.as_view(), name='password_reset_complete'),
     # Fin reset password
     path('cambiar-password/', usuarios_views.UsuarioCambiarPasswordView.as_view(), name='cambiar-password'),
-    path('transferencia_motivo/', include('apps.transferencia_motivo.urls')),
-    path('usuarios/', include('apps.usuarios.urls')),
+    path('administracion/transferencia_motivo/', include('apps.transferencia_motivo.urls')),
+    path('administracion/usuarios/', include('apps.usuarios.urls')),
+    path("administracion/movimientos", movimientos_views.HistorialMovimientosAdmin.as_view(), name="admin_historial"),
     path('movimientos/', include('apps.movimientos.urls')),
 ]
 

@@ -11,7 +11,7 @@
             newUrl.search = '';
             window.location.href = newUrl.href;
         });
-    });
+    });    
 }());
 
 
