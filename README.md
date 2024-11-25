@@ -12,9 +12,9 @@ Sosa Lopez, Facundo Samuel
 ## Requisitos Previos
 
 Herramientas necesarias para instalar y ejecutar el proyecto:
-- **Python 3.9+**
-- **Django 4.2+**
-- **Mysql 7+**
+- **Python 3.12.7**
+- **Django 5.1**
+- **Mysql 8+**
 - **Git**
 
 ## Instalación
