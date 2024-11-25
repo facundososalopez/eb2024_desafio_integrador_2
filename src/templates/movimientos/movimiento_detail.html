@@ -22,13 +22,13 @@
     <div class=" text-center">
         {% if request.META.HTTP_REFERER and 'panel' in request.META.HTTP_REFERER %}
             <!-- Si vino del panel, redirigir al panel -->
-            <a href="{% url 'panel' %}" class="btn btn-secondary">Volver al Panel</a>
+            <a href="{{ request.META.HTTP_REFERER|escape }}" class="btn btn-secondary">Volver al Panel</a>
         {% elif request.META.HTTP_REFERER and 'admin' in request.META.HTTP_REFERER %}
             <!-- Si vino del admin, redirigir al admin -->
-            <a href="{% url 'admin_historial' %}" class="btn btn-secondary">Volver a Historial</a>
+            <a href="{{ request.META.HTTP_REFERER|escape }}" class="btn btn-secondary">Volver a Historial</a>
         {% else %}
             <!-- Si no, redirigir al listado de movimientos -->
-            <a href="{% url 'movimientos:historial' %}" class="btn btn-secondary">Volver a Mi Historial</a>
+            <a href="{{ request.META.HTTP_REFERER|escape }}" class="btn btn-secondary">Volver a Mi Historial</a>
         {% endif %}
     </div>
    
