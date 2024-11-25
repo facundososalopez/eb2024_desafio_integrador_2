@@ -53,13 +53,12 @@
         </tbody>
     </table>
 </div>
-{{ paginator.number}}
-<br>
-{% bootstrap_pagination page_obj justify_content='center' %}
-{% else %}
+{% include '_filter_pagination.html' %}
+{% if movimientos.count == 0 %}
 <div class="alert alert-warning text-center" role="alert">
     No existen movimientos registrados.
 </div>
+{% endif %}
 {% endif %}
 
 {% endblock %}

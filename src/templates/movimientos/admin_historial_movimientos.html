@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 {% load django_bootstrap5 %}
+{% block block_name %}Historial de movimientos{% endblock %}
 {% block content %}
-    <h1>Mi historial de transacciones</h1>
+    <h1>Historial de movimientos</h1>
  <!-- Formulario de Filtros -->
-  {% include 'movimientos/_filtro_mi_historial.html' %}
+{% include 'movimientos/_filtro_mi_historial.html' %}
 
-    {% if movimientos %}
+{% if movimientos %}
+    
 <div class="table-responsive">
     <table class="table table-striped table-hover table-bordered align-middle"> 
         <thead class="table-dark">
@@ -54,13 +56,14 @@
         </tbody>
     </table>
 </div>
-{{ paginator.number }}
-<br>
-{% bootstrap_pagination page_obj justify_content='center' %}
-{% else %}
+{% include '_filter_pagination.html' %}
+
+{% if movimientos.count == 0 %}
 <div class="alert alert-warning text-center" role="alert">
     No existen movimientos registrados.
 </div>
+{% endif %}
+
 {% endif %}
 
 {% endblock %}
