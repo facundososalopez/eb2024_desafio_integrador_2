@@ -47,7 +47,7 @@ pip install -r requirements/base.txt
   EMAIL_FROM=tuemail@gmail.com
   
 ### 5. Migrar la base de datos
-python manage.py makemigrations
+python manage.py makemigrations<br>
 python manage.py migrate
 ### 6. Ejecutar el servidor
 python manage.py runserver
