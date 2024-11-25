@@ -90,7 +90,7 @@ class AdminUsuariosListView(TestStaffMixin, FilterView):
         'is_staff': ['exact'],
     }
     model = Usuario
-    paginate_by = 1
+    paginate_by = 10
     template_name = 'usuarios/admin_list.html'
 
 class AdminUsuariosUpdateView(SuccessMessageMixin, TestStaffMixin, UpdateView):
